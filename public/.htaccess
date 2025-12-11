@@ -1,0 +1,18 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTPS}  !=on
+  RewriteRule ^/?(.*) https://bazarbin.ir/$1 [R,L]
+
+  RewriteCond %{HTTP_HOST} ^bazarbin\.com$ [OR]
+  RewriteCond %{HTTP_HOST} ^www\.bazarbin\.com$
+  RewriteRule ^ https://www.bazarbin.ir%{REQUEST_URI} [L,R=301]
+
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>

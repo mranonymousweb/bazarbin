@@ -1,0 +1,133 @@
+<template>
+  <transition leave-active-class="duration-200" @after-leave="$emit('leave-completed')">
+    <div
+      v-show="show"
+      :class="['fixed inset-0 overflow-y-auto sm:px-0 z-40', fullPageOnMobile ? 'sm:py-6 h-screen sm:h-auto' : 'px-4 py-6']"
+      scroll-region
+    >
+      <transition enter-active-class="ease-out duration-300"
+                  enter-class="opacity-0"
+                  enter-to-class="opacity-100"
+                  leave-active-class="ease-in duration-200"
+                  leave-class="opacity-100"
+                  leave-to-class="opacity-0">
+        <div v-show="show" class="fixed inset-0 transform transition-all" @click="close">
+          <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+      </transition>
+
+      <transition enter-active-class="ease-out duration-300"
+                  enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                  enter-to-class="opacity-100 translate-y-0 sm:scale-100"
+                  leave-active-class="ease-in duration-200"
+                  leave-class="opacity-100 translate-y-0 sm:scale-100"
+                  leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+        <div
+          v-show="show"
+          :class="[
+            center ? 'flex items-center justify-center h-full' : ''
+          ]"
+        >
+          <div
+            :class="[
+              'bg-white overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto',
+              fullPageOnMobile ? 'sm:rounded h-screen sm:h-auto' : 'rounded',
+              maxWidthClass
+            ]"
+          >
+            <slot></slot>
+          </div>
+        </div>
+      </transition>
+    </div>
+  </transition>
+</template>
+
+<script>
+
+import 'animate.css/source/zooming_exits/zoomOut.css'
+import 'animate.css/source/zooming_entrances/zoomIn.css'
+
+export default {
+  name: 'Modal',
+
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    fullPageOnMobile: {
+      type: Boolean,
+      default: false
+    },
+    maxWidth: {
+      type: String,
+      default: '2xl'
+    },
+    closeable: {
+      type: Boolean,
+      default: true
+    },
+    center: {
+      type: Boolean,
+      default: false
+    }
+  },
+
+  computed: {
+    maxWidthClass() {
+      return {
+        'sm': 'sm:max-w-sm',
+        'md': 'sm:max-w-md',
+        'lg': 'sm:max-w-lg',
+        'xl': 'sm:max-w-xl',
+        '2xl': 'sm:max-w-2xl',
+        '3xl': 'sm:max-w-3xl',
+        '4xl': 'sm:max-w-4xl',
+      }[this.maxWidth]
+    }
+  },
+
+  watch: {
+    show(show) {
+        if (show) {
+          document.body.style.overflow = 'hidden'
+        } else {
+          document.body.style.overflow = null
+        }
+    }
+  },
+
+  mounted() {
+    document.addEventListener('keydown', this.closeOnEscape)
+  },
+
+  beforeDestroy() {
+    document.removeEventListener('keydown', this.closeOnEscape)
+    document.body.style.overflow = null
+  },
+
+  methods: {
+    close() {
+      if (this.closeable) {
+        this.$emit('close')
+      }
+    },
+    closeOnEscape(e) {
+      if (e.key === 'Escape' && this.show) {
+        this.close()
+      }
+    }
+  }
+}
+
+</script>
+
+<style lang="scss">
+.zoomIn-enter-active {
+  animation: zoomIn .5s;
+}
+.zoomIn-leave-active{
+  animation: zoomOut .5s;
+}
+</style>

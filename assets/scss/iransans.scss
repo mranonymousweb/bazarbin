@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'iransansxv';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: fallback;
+  src: url('~/assets/fonts/IRANSansXV.woff2') format('woff2'),
+       url('~/assets/fonts/IRANSansXV.woff') format('woff');
+}
+.persian-number {
+  -moz-font-feature-settings: "ss02";
+  -webkit-font-feature-settings: "ss02";
+  font-feature-settings: "ss02";
+}
+.origin-number {
+  -moz-font-feature-settings: "ss02" off;
+  -webkit-font-feature-settings: "ss02" off;
+  font-feature-settings: "ss02" off;
+}
+.rounded-dot {
+  font-variation-settings: "rdot" 1;
+}
+.monospace-number {
+  -moz-font-feature-settings: "ss03";
+  -webkit-font-feature-settings: "ss03";
+  font-feature-settings: "ss03";
+}

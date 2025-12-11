@@ -1,0 +1,76 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
+
+.screens-skeleton-el {
+  animation: skeleton 3s infinite;
+}
+
+.h-60-px {
+  height: 60px;
+}
+
+.dir-ltr {
+  direction: ltr;
+}
+
+.text-lines-3 {
+  --text-lines: 3
+}
+
+.multiline-truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--text-lines);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+select {
+  background-position: 0.5rem center;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23737CFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+}
+
+[dir="rtl"] {
+  select {
+    padding-left: 2.5rem;
+    padding-right: .75rem;
+  }
+}
+.leaflet-container {
+  z-index: 0;
+}
+
+@keyframes skeleton {
+  0% {
+    opacity: .5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: .5;
+  }
+}
+
+.loader {
+  border-top-color: #fff;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media print {
+
+  .no-print {
+    display: none;
+  }
+}

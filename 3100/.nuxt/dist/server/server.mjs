@@ -1,0 +1,1 @@
+export { default } from "file:///C:/wamp64/www/bazrbin/bazarbin-front-v4/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"
